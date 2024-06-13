@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+        }
+        .countdown {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 2em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="countdown" id="countdown"></div>
+        <div class="message" id="message">O Barba estará te esperando na área externa da biblioteca.</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(10, 0, 0, 0); // Set to 10:00:00
+
+            const totalSeconds = (target - now) / 1000;
+
+            if (totalSeconds > 0) {
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = Math.floor(totalSeconds % 60);
+
+                const countdown = document.getElementById('countdown');
+                countdown.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('message').style.display = 'block';
+                clearInterval(interval);
+            }
+        }
+
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
